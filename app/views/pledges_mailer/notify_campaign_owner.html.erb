@@ -1,0 +1,13 @@
+<p>Hello <%= @owner.full_name %>,</p>
+
+<p>
+  Someone pledges to your campaign <%= @campaign.name %>
+</p>
+
+<p>
+  The pledge amount is: <%= number_to_currency(@pledge.amount) %>
+</p>
+
+<p>Regards,</p>
+
+<p>Fund.sy Team</p>
