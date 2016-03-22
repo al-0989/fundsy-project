@@ -66,4 +66,9 @@
   "35 Milnor St, Valley, NS, B6L 3K5",
   "7 Saint Nicholas Ave, North Vancouver, BC, V7J 3P8"]
   Campaign.create(name: Faker::Company.name, description: Faker::Company.bs, goal: rand(10000000), user_id: [1, 2, 3, 4].sample(), address: arr.sample())
+
+  100.times do
+    c = FactoryGirl.create(:campaign)
+    10.times { c.pledges.create(amount: rand(10000)) }
+  end
 end

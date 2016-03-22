@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :campaigns do
     resources :pledges, only: [:create, :destroy]
     resources :publishings, only: [:create]
+    resources :comments, only: [:create]
   end
 
   resources :users, only: [:new, :create]

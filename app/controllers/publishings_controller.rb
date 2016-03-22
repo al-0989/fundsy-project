@@ -4,7 +4,8 @@ class PublishingsController < ApplicationController
 
   def create
     campaign = current_user.campaigns.friendly.find(params[:campaign_id])
-    if campaign.publish!
+    service = Campaigns::PublishCampaign.new(campaign:campaign)
+    if service.call
       redirect_to campaign, notice: "Published!"
     else
       redirect_to campaign, alert: "Can't publish! Published already?"

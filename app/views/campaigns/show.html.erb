@@ -2,18 +2,13 @@
 
 <p><%= @campaign.description %></p>
 
-<p>Goal: <%= number_to_currency(@campaign.goal) %></p>
+<p>Goal: <%= @campaign.goal %></p>
 
-<p>End Date: <%= formatted_date_time(@campaign.end_date) %></p>
+<p>End Date: <%= @campaign.end_date %></p>
 
-<div class="label label-default"><%= @campaign.aasm_state %></div>
+<%= @campaign.state_label %>
 
-<% if @campaign.draft? %>
-  <%= link_to "Publish", campaign_publishings_path(@campaign),
-                         method: :post,
-                         class: "btn btn-primary",
-                         data: {confirm: "Are you sure? You won't be able to edit the campaign after it's been published"} %>
-<% end %>
+<%= @campaign.publish_button %>
 
 <% if @campaign.image %>
   <%= image_tag @campaign.image.url(:large) %>
@@ -56,5 +51,17 @@
   <div class="well col-md-3">
     <h3><%= reward.title %></h3>
     <p><%= number_to_currency(reward.amount) %></p>
+  </div>
+<% end %>
+
+<hr>
+<%= simple_form_for [@campaign, @comment] do |f| %>
+  <%= f.input :body %>
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>
+
+<% @campaign.comments.each do |com| %>
+  <div class="well">
+   <%= com.body %>
   </div>
 <% end %>

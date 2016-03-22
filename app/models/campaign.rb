@@ -13,8 +13,10 @@ class Campaign < ActiveRecord::Base
 
   has_many :rewards, dependent: :destroy
 
+  has_many :comments, as: :commentable
+
   geocoded_by :address   # can also be an IP address. Would use an IP address beacause we dont need to ask the users permission. The IP address is sent automatically with each request
-  
+
   after_validation :geocode          # auto-fetch coordinates
 
   include AASM

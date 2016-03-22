@@ -34,6 +34,8 @@ module Fundsy
 
     config.autoload_paths << Rails.root.join("app", "jobs") # this tells rails to load these files on startup. By default rails will only start up the files that are auto generated. Things like jobs and uploaders we add.
     config.autoload_paths << Rails.root.join("app", "uploaders")
+    config.autoload_paths << Rails.root.join("app", "decorators")
+    config.autoload_paths << Rails.root.join("app", "services")
 
     config.active_job.queue_adapter= :sidekiq
   end

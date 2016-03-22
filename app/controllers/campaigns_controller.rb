@@ -11,12 +11,12 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @campaign = Campaign.create(campaign_params)
-    @campaign.user = current_user
-    if @campaign.save
+    service = Campaigns::CreateCampaign.new(user: current_user, params: campaign_params)
+    if service.call
       flash[:notice] = "Campaign created"
-      redirect_to campaign_path(@campaign)
+      redirect_to campaign_path(service.campaign)
     else
+      @campaign = service.campaign
       build_associated_rewards
       flash[:alert] = "Campaign not created"
       render :new
@@ -26,6 +26,7 @@ class CampaignsController < ApplicationController
   def show
     # find_by_id will not throw an error if it can't find anything. It will return
     # a nil
+    @comment = Comment.new
   end
 
   def index
@@ -68,7 +69,7 @@ class CampaignsController < ApplicationController
   end
 
   def find_campaign
-    @campaign = Campaign.friendly.find params[:id]
+    @campaign = Campaign.friendly.find(params[:id]).decorate
   end
 
   def user_campaign
