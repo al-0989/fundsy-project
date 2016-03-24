@@ -1,5 +1,12 @@
 require 'sidekiq/web'
+
 Rails.application.routes.draw do
+
+  resources :discussions do
+    resources :comments, only: [:create]
+  end
+
+  mount Sidekiq::Web, at: '/sidekiq'
 
   resources :my_campaigns, only: [:index]
   resources :nearby_campaigns, only: [:index]
@@ -10,6 +17,9 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
   end
 
+  resources :pledges, only: [] do
+    resources :payments, only: [:new, :create]
+  end
   resources :users, only: [:new, :create]
 
   resources :sessions, only: [:new, :create, :destroy] do

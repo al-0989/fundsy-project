@@ -27,7 +27,9 @@ class CampaignsController < ApplicationController
     # find_by_id will not throw an error if it can't find anything. It will return
     # a nil
     @comment = Comment.new
+    @pledge  = Pledge.new
   end
+
 
   def index
     @campaigns = Campaign.order("created_at ASC").published

@@ -45,6 +45,7 @@ gem 'sidekiq'
 gem 'sinatra'
 gem 'draper'
 gem 'virtus'
+gem 'stripe'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
